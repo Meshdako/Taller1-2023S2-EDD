@@ -1,4 +1,4 @@
-#include "direccion.h"
+#include "direccion.hpp"
 
 Direccion::Direccion()
 {
@@ -14,9 +14,11 @@ Direccion::Direccion(std::string calle, int numero, std::string comuna)
     this->comuna = comuna;
 }
 
-Direccion::~Direccion()
+Direccion::Direccion(std::string calle)
 {
-    // Empty
+    this->calle = calle;
+    this->numero = 0;
+    this->comuna = "0";
 }
 
 void Direccion::verDireccion() const
