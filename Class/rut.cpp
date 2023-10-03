@@ -1,4 +1,4 @@
-#include "rut.h"
+#include "rut.hpp"
 
 Rut::Rut() {
     this->rut = 0;
@@ -8,10 +8,6 @@ Rut::Rut() {
 Rut::Rut(int rut, char dv) {
     this->rut = rut;
     this->dv = dv;
-}
-
-Rut::~Rut() {
-    // Empty
 }
 
 char Rut::calcular_dv(int rut) const
@@ -36,7 +32,7 @@ char Rut::calcular_dv(int rut) const
     if(suma == 11)
         dv_calculado = '0';
     else if(suma == 10)
-        dv_calculado = 'K';
+        dv_calculado = 'k';
     else
         dv_calculado = std::to_string(suma);
 
@@ -45,22 +41,23 @@ char Rut::calcular_dv(int rut) const
 }
 
 
-void Rut::verificacion() const
+void Rut::verificacion()
 {
     // Calculamos el dígito verificador
     char dv_calculado = calcular_dv(rut);
 
     // Comparamos el dígito verificador calculado con el dígito verificador ingresado
-    if (dv == dv_calculado) {
+    if (dv_calculado  == dv || dv_calculado == 'k') {
         // El RUT es válido
         return;
     } else {
         // El RUT es inválido
-        throw std::invalid_argument("El RUT ingresado es inválido okok");
+        std::cout << "El RUT ingresado es inválido. Corrigiendo... ";
+        setDv(dv_calculado);
     }
 }
 
-void Rut::verRut() const
+void Rut::verRut()
 {
-    std::cout << "RUT: " << rut << "-" << dv << std::endl;
+    std::cout << "RUT: " << this->rut << "-" << this->dv << std::endl;
 }
