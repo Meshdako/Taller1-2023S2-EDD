@@ -42,11 +42,58 @@ void TotalizadorPatentesComerciales(Patente p[], int indice, int valorUTM)
     std::cout << "El total de patentes comerciales es: $" << suma * valorUTM << std::endl;
 }
 
+void BuscarRolRut(Patente p[], int indice, int Rol_Rut)
+{
+    int verificador = 0;
+    for(int i = 0; i < indice; i++){
+        if(p[i].getRol() == Rol_Rut){
+            std::cout << "\t\t\e[1mPatente encontrada por ROL ingresado.\e[0m" << std::endl;
+            p[i].verPatente();
+            return;
+        }
+        if(p[i].getRut().getRut() == Rol_Rut){
+            std::cout << "\t\t\e[1mPatente encontrada por RUT ingresado.\e[0m" << std::endl;
+            p[i].verPatente();
+            return;
+        }
+    }
+
+    if (verificador == 0){
+        std::cout << "No se encontró la patente." << std::endl;
+        return;
+    }
+}
+
+void PatentesAntiguedad(Patente p[], int indice)
+{
+    std::vector<std::string> patentes;
+
+    std::cout << "Patentes serán ordenadas por TIPO DE PATENTE." << std::endl;
+
+    for(int i = 0; i < indice; i++)
+        patentes.push_back(p[i].getTipoPatente());
+
+    //Mediante la librería SET borramos los duplicados en el vector de patentes.
+    std::set<std::string> string_set(patentes.begin(), patentes.end());
+    patentes.assign(string_set.begin(), string_set.end());
+
+    for (unsigned i = 0, cont = 0; i < patentes.size(); i++){
+        std::cout << "Patentes de tipo: " << patentes.at(i) << std::endl;
+        for(int j = 0; j < indice; j++){
+            if(patentes.at(i) == p[j].getTipoPatente() && p[j].getFechaNacimiento().getAnio() < 2018){
+                p[j].verPatente();
+                std::cout << "--------------------------------" << std::endl;
+            }
+        }
+        PressEnterToContinue();
+    }
+}
+
 void Menu(Patente p[], int indice)
 {
     int opcion;
 
-    int valorUTM;
+    int valorUTM, Rol_Rut;
 
     while(opcion != 0){
         std::cout << "Bienvenido al sistema de patentes comerciales" << std::endl;
@@ -77,17 +124,21 @@ void Menu(Patente p[], int indice)
         case 3:
             std::cout << "Ingrese el valor UTM que corresponde: ";
             std::cin >> valorUTM;
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
             TotalizadorPatentesComerciales(p, indice, valorUTM);
             PressEnterToContinue();
             break;
         case 4:
-            /* code */
+            std::cout << "Ingrese el ROL / RUT que desea buscar: ";
+            std::cin >> Rol_Rut;
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+            BuscarRolRut(p, indice, Rol_Rut);
             PressEnterToContinue();
             break;
         case 5:
-            /* code */
-            PressEnterToContinue();
+            PatentesAntiguedad(p, indice);
             break;
         
         default:

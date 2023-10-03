@@ -8,6 +8,7 @@
 #include <fstream>
 #include <limits>       //relacionada a los límites de valores
 #include <cctype>
+#include <set>
 
 // Clases
 #include "Class/rut.hpp"
@@ -16,6 +17,16 @@
 #include "Class/patente.hpp"
 
 void PressEnterToContinue();
+
+void ValorAleatorio(Patente p[], int indice);
+
+void VerificarDigitoVerificador(Patente p[], int indice);
+
+void TotalizadorPatentesComerciales(Patente p[], int indice, int valorUTM);
+
+void BuscarRolRut(Patente p[], int indice, int Rol_Rut);
+
+void PatentesAntiguedad(Patente p[], int indice);
 
 // Funciones Externas
 void Menu(Patente p[], int indice);
