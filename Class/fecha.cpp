@@ -1,4 +1,4 @@
-#include "fecha.h"
+#include "fecha.hpp"
 
 Fecha::Fecha()
 {
@@ -12,11 +12,6 @@ Fecha::Fecha(int dia, int mes, int anio)
     this->dia = dia;
     this->mes = mes;
     this->anio = anio;
-}
-
-Fecha::~Fecha()
-{
-    // Empty
 }
 
 void Fecha::verFecha() const
